@@ -1,0 +1,30 @@
+## Visual Studio files
+.vs/
+*.user
+*.suo
+
+## Build output
+bin/
+obj/
+
+## NuGet packages
+packages/
+*.nupkg
+
+## Database
+*.db
+*.db-shm
+*.db-wal
+
+## User secrets
+secrets.json
+
+## macOS
+.DS_Store
+
+## Node
+node_modules/
+npm-debug.log*
+
+## Publish output
+publish/

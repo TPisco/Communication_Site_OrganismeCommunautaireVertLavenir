@@ -1,0 +1,34 @@
+@model VertLavenir.Models.Membre
+
+@{
+    ViewData["Title"] = "Supprimer le membre";
+}
+
+<h1 class="text-danger">🗑️ Supprimer le membre</h1>
+<hr />
+
+<div class="alert alert-warning">
+    <strong>Attention!</strong> Êtes-vous sûr de vouloir supprimer ce membre? Cette action est irréversible.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Nom complet</dt>
+    <dd class="col-sm-9">@Model.NomComplet</dd>
+
+    <dt class="col-sm-3">Courriel</dt>
+    <dd class="col-sm-9">@Model.Courriel</dd>
+
+    <dt class="col-sm-3">Rôle</dt>
+    <dd class="col-sm-9">@(Model.Role ?? "—")</dd>
+
+    <dt class="col-sm-3">Date d'adhésion</dt>
+    <dd class="col-sm-9">@Model.DateAdhesion.ToString("d MMMM yyyy")</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <div class="d-flex gap-2">
+        <input type="submit" value="Oui, supprimer" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+    </div>
+</form>

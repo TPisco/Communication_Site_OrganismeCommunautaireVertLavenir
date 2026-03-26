@@ -1,0 +1,69 @@
+@model VertLavenir.Models.Article
+
+@{
+    ViewData["Title"] = "Modifier l'article";
+}
+
+<h1 class="text-success">📰 Modifier l'article</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Titre" class="form-label fw-bold"></label>
+                <input asp-for="Titre" class="form-control" />
+                <span asp-validation-for="Titre" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Contenu" class="form-label fw-bold"></label>
+                <textarea asp-for="Contenu" class="form-control" rows="8"></textarea>
+                <span asp-validation-for="Contenu" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Auteur" class="form-label fw-bold"></label>
+                    <input asp-for="Auteur" class="form-control" />
+                    <span asp-validation-for="Auteur" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Categorie" class="form-label fw-bold"></label>
+                    <input asp-for="Categorie" class="form-control" />
+                    <span asp-validation-for="Categorie" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DatePublication" class="form-label fw-bold"></label>
+                    <input asp-for="DatePublication" class="form-control" type="datetime-local" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+                    <span asp-validation-for="DatePublication" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ImageUrl" class="form-label fw-bold"></label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input asp-for="EstPublie" class="form-check-input" />
+                <label asp-for="EstPublie" class="form-check-label">Publier cet article</label>
+            </div>
+
+            <div class="d-flex gap-2">
+                <input type="submit" value="Enregistrer" class="btn btn-warning" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

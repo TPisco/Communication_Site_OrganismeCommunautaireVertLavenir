@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Accueil";
+}
+
+<!-- Hero Section -->
+<div class="p-5 mb-4 bg-success text-white rounded-3">
+    <div class="container-fluid py-3 text-center">
+        <h1 class="display-5 fw-bold">🌿 Vert L'avenir</h1>
+        <p class="col-md-8 fs-4 mx-auto">
+            Organisme communautaire dédié à un avenir durable pour notre collectivité.
+            Ensemble, construisons un environnement plus vert.
+        </p>
+        @if (!User.Identity!.IsAuthenticated)
+        {
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-light btn-lg mt-2">Connexion administrateur</a>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <!-- Derniers articles -->
+    <div class="col-md-7">
+        <h2 class="text-success mb-3">📰 Dernières nouvelles</h2>
+        @if (ViewBag.Articles != null && ((List<VertLavenir.Models.Article>)ViewBag.Articles).Count > 0)
+        {
+            foreach (var article in (List<VertLavenir.Models.Article>)ViewBag.Articles)
+            {
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">@article.Titre</h5>
+                        <p class="card-text text-muted small">
+                            <i>Publié le @article.DatePublication.ToString("d MMMM yyyy")</i>
+                            @if (!string.IsNullOrEmpty(article.Auteur))
+                            {
+                                <span> par @article.Auteur</span>
+                            }
+                            @if (!string.IsNullOrEmpty(article.Categorie))
+                            {
+                                <span class="badge bg-success ms-1">@article.Categorie</span>
+                            }
+                        </p>
+                        <p class="card-text">
+                            @(article.Contenu.Length > 200
+                                ? article.Contenu.Substring(0, 200) + "..."
+                                : article.Contenu)
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-light">Aucun article publié pour le moment.</div>
+        }
+    </div>
+
+    <!-- Prochains événements -->
+    <div class="col-md-5">
+        <h2 class="text-success mb-3">📅 Prochains événements</h2>
+        @if (ViewBag.Evenements != null && ((List<VertLavenir.Models.Evenement>)ViewBag.Evenements).Count > 0)
+        {
+            foreach (var evt in (List<VertLavenir.Models.Evenement>)ViewBag.Evenements)
+            {
+                <div class="card mb-3 border-success shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <strong>@evt.DateDebut.ToString("ddd d MMM yyyy")</strong>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">@evt.Titre</h6>
+                        <p class="card-text small text-muted">
+                            📍 @evt.Lieu
+                        </p>
+                        @if (evt.NombreMaxParticipants.HasValue)
+                        {
+                            <p class="card-text small">Places: @evt.NombreMaxParticipants</p>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-light">Aucun événement à venir.</div>
+        }
+    </div>
+</div>
+
