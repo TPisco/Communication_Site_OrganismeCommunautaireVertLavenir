@@ -60,12 +60,15 @@ using (var scope = app.Services.CreateScope())
         if (!await roleManager.RoleExistsAsync("Administrateur"))
             await roleManager.CreateAsync(new IdentityRole("Administrateur"));
 
-        var adminEmail = "admin@vertlavenir.ca";
+        var adminEmail = builder.Configuration["AdminSeed:Email"] ?? "admin@vertlavenir.ca";
+        // NOTE: Change this password via the Manage Account page after first login in production.
+        var adminPassword = builder.Configuration["AdminSeed:Password"] ?? "Admin123!";
+
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
         if (adminUser == null)
         {
             adminUser = new IdentityUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
-            await userManager.CreateAsync(adminUser, "Admin123!");
+            await userManager.CreateAsync(adminUser, adminPassword);
             await userManager.AddToRoleAsync(adminUser, "Administrateur");
         }
     }
