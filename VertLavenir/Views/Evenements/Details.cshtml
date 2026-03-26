@@ -1,0 +1,44 @@
+@model VertLavenir.Models.Evenement
+
+@{
+    ViewData["Title"] = "Détails de l'événement";
+}
+
+<h1 class="text-primary">📅 @Model.Titre</h1>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Date de début</dt>
+    <dd class="col-sm-9">@Model.DateDebut.ToString("d MMMM yyyy à H:mm")</dd>
+
+    <dt class="col-sm-3">Date de fin</dt>
+    <dd class="col-sm-9">@(Model.DateFin.HasValue ? Model.DateFin.Value.ToString("d MMMM yyyy à H:mm") : "—")</dd>
+
+    <dt class="col-sm-3">Lieu</dt>
+    <dd class="col-sm-9">@Model.Lieu</dd>
+
+    <dt class="col-sm-3">Places max</dt>
+    <dd class="col-sm-9">@(Model.NombreMaxParticipants.HasValue ? Model.NombreMaxParticipants.ToString() : "Illimité")</dd>
+
+    <dt class="col-sm-3">Statut</dt>
+    <dd class="col-sm-9">
+        @if (Model.EstActif)
+        {
+            <span class="badge bg-success">Actif</span>
+        }
+        else
+        {
+            <span class="badge bg-danger">Inactif/Annulé</span>
+        }
+    </dd>
+
+    <dt class="col-sm-3">Description</dt>
+    <dd class="col-sm-9">
+        <div class="border rounded p-3 bg-light">@Model.Description</div>
+    </dd>
+</dl>
+
+<div class="d-flex gap-2 mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Modifier</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Retour à la liste</a>
+</div>

@@ -1,0 +1,69 @@
+@model VertLavenir.Models.Evenement
+
+@{
+    ViewData["Title"] = "Modifier l'événement";
+}
+
+<h1 class="text-primary">📅 Modifier l'événement</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Titre" class="form-label fw-bold"></label>
+                <input asp-for="Titre" class="form-control" />
+                <span asp-validation-for="Titre" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label fw-bold"></label>
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DateDebut" class="form-label fw-bold"></label>
+                    <input asp-for="DateDebut" class="form-control" type="datetime-local" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+                    <span asp-validation-for="DateDebut" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DateFin" class="form-label fw-bold"></label>
+                    <input asp-for="DateFin" class="form-control" type="datetime-local" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+                    <span asp-validation-for="DateFin" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Lieu" class="form-label fw-bold"></label>
+                    <input asp-for="Lieu" class="form-control" />
+                    <span asp-validation-for="Lieu" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="NombreMaxParticipants" class="form-label fw-bold"></label>
+                    <input asp-for="NombreMaxParticipants" class="form-control" type="number" min="1" />
+                    <span asp-validation-for="NombreMaxParticipants" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input asp-for="EstActif" class="form-check-input" />
+                <label asp-for="EstActif" class="form-check-label">Événement actif</label>
+            </div>
+
+            <div class="d-flex gap-2">
+                <input type="submit" value="Enregistrer" class="btn btn-warning" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

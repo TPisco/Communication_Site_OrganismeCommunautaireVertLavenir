@@ -1,0 +1,43 @@
+@model VertLavenir.Models.Article
+
+@{
+    ViewData["Title"] = "Supprimer l'article";
+}
+
+<h1 class="text-danger">🗑️ Supprimer l'article</h1>
+<hr />
+
+<div class="alert alert-warning">
+    <strong>Attention!</strong> Êtes-vous sûr de vouloir supprimer cet article? Cette action est irréversible.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Titre</dt>
+    <dd class="col-sm-9">@Model.Titre</dd>
+
+    <dt class="col-sm-3">Auteur</dt>
+    <dd class="col-sm-9">@(Model.Auteur ?? "—")</dd>
+
+    <dt class="col-sm-3">Date de publication</dt>
+    <dd class="col-sm-9">@Model.DatePublication.ToString("d MMMM yyyy")</dd>
+
+    <dt class="col-sm-3">Statut</dt>
+    <dd class="col-sm-9">
+        @if (Model.EstPublie)
+        {
+            <span class="badge bg-success">Publié</span>
+        }
+        else
+        {
+            <span class="badge bg-secondary">Brouillon</span>
+        }
+    </dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <div class="d-flex gap-2">
+        <input type="submit" value="Oui, supprimer" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+    </div>
+</form>

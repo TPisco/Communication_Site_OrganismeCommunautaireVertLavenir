@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<h1 class="text-success">Contactez-nous</h1>
+<hr />
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h3>Coordonnées</h3>
+        <ul class="list-unstyled mt-3">
+            <li class="mb-2">
+                <strong>📧 Courriel :</strong>
+                <a href="mailto:info@vertlavenir.ca">info@vertlavenir.ca</a>
+            </li>
+            <li class="mb-2">
+                <strong>📞 Téléphone :</strong> (514) 555-0100
+            </li>
+            <li class="mb-2">
+                <strong>📍 Adresse :</strong><br />
+                123, rue de l'Environnement<br />
+                Montréal (Québec) H1A 1A1
+            </li>
+            <li class="mb-2">
+                <strong>🕐 Heures d'ouverture :</strong><br />
+                Lundi – Vendredi : 9h00 – 17h00
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title text-success">Envoyez-nous un message</h4>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Nom complet</label>
+                        <input type="text" class="form-control" placeholder="Votre nom" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Courriel</label>
+                        <input type="email" class="form-control" placeholder="votre@courriel.ca" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Sujet</label>
+                        <input type="text" class="form-control" placeholder="Sujet de votre message" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" rows="4" placeholder="Votre message..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

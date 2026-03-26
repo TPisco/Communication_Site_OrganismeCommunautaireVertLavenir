@@ -1,0 +1,31 @@
+@model VertLavenir.Models.Evenement
+
+@{
+    ViewData["Title"] = "Supprimer l'événement";
+}
+
+<h1 class="text-danger">🗑️ Supprimer l'événement</h1>
+<hr />
+
+<div class="alert alert-warning">
+    <strong>Attention!</strong> Êtes-vous sûr de vouloir supprimer cet événement? Cette action est irréversible.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Titre</dt>
+    <dd class="col-sm-9">@Model.Titre</dd>
+
+    <dt class="col-sm-3">Date de début</dt>
+    <dd class="col-sm-9">@Model.DateDebut.ToString("d MMMM yyyy")</dd>
+
+    <dt class="col-sm-3">Lieu</dt>
+    <dd class="col-sm-9">@Model.Lieu</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <div class="d-flex gap-2">
+        <input type="submit" value="Oui, supprimer" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+    </div>
+</form>

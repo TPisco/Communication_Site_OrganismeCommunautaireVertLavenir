@@ -1,0 +1,74 @@
+@model VertLavenir.Models.Membre
+
+@{
+    ViewData["Title"] = "Nouveau membre";
+}
+
+<h1 class="text-warning">👥 Nouveau membre</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Prenom" class="form-label fw-bold"></label>
+                    <input asp-for="Prenom" class="form-control" placeholder="Prénom" />
+                    <span asp-validation-for="Prenom" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Nom" class="form-label fw-bold"></label>
+                    <input asp-for="Nom" class="form-control" placeholder="Nom de famille" />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Courriel" class="form-label fw-bold"></label>
+                <input asp-for="Courriel" class="form-control" type="email" placeholder="prenom.nom@exemple.ca" />
+                <span asp-validation-for="Courriel" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Telephone" class="form-label fw-bold"></label>
+                    <input asp-for="Telephone" class="form-control" placeholder="(514) 555-0100" />
+                    <span asp-validation-for="Telephone" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Role" class="form-label fw-bold"></label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="">-- Choisir un rôle --</option>
+                        <option value="Membre">Membre</option>
+                        <option value="Bénévole">Bénévole</option>
+                        <option value="Administrateur">Administrateur</option>
+                        <option value="Partenaire">Partenaire</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DateAdhesion" class="form-label fw-bold"></label>
+                <input asp-for="DateAdhesion" class="form-control" type="date" />
+                <span asp-validation-for="DateAdhesion" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input asp-for="EstActif" class="form-check-input" />
+                <label asp-for="EstActif" class="form-check-label">Membre actif</label>
+            </div>
+
+            <div class="d-flex gap-2">
+                <input type="submit" value="Ajouter" class="btn btn-warning" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
