@@ -10,6 +10,8 @@
         public string prenom {  get; set; }
         public role role { get; set; }
         public string email { get; set; }
+
+        public string password { get; set; }
         public string numero { get; set; }
         public int AddressId { get; set; }   // FK
         public adresse Address { get; set; }
