@@ -1,0 +1,37 @@
+﻿@page
+@using Communication_VertLavenir.Views
+@model IndexModel
+
+
+<div class="text-center mb-5">
+    <h1 class="display-4">Bienvenue</h1>
+    <p>Placeholder</p>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+        <div class="col-12 col-md-4">
+            <div class="ratio ratio-1x1">
+                <div class="bg-light border rounded-4 shadow-sm d-flex align-items-center justify-content-center">
+                    <a class="nav-link text-dark" asp-controller="stats" asp-action="Index">Statistiques</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="ratio ratio-1x1">
+                <div class="bg-light border rounded-4 shadow-sm d-flex align-items-center justify-content-center">
+                    <a class="nav-link text-dark" asp-controller="Evenements" asp-action="Index">Évenements</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="ratio ratio-1x1">
+                <div class="bg-light border rounded-4 shadow-sm d-flex align-items-center justify-content-center">
+                    <a asp-page="/gererutilisateur" class="btn btn-outline-secondary me-2">Gérer les utilisateurs</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
