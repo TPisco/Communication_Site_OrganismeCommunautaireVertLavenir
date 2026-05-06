@@ -1,6 +1,6 @@
 ﻿namespace Communication_VertLavenir.Models
 {
-    public enum typeEvent { collecte, activité, Benevolat }
+    public enum typeEvent { Collecte, Activité, Bénévolat }
     public class evenement
     {
         public int id { get; set; }

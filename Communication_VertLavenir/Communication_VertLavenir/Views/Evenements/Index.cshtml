@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Communication_VertLavenir.Models.evenement>
+
+<h1>Liste des événements</h1>
+
+<p>
+    <a asp-action="Create">Créer un événement</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.nom</td>
+                <td>@item.date.ToShortDateString()</td>
+                <td>@item.description</td>
+                <td>@item.type</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Modifier</a> |
+                    <a asp-action="Details" asp-route-id="@item.id">Détails</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

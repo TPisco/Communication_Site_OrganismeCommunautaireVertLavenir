@@ -1,0 +1,33 @@
+﻿@model Communication_VertLavenir.Models.evenement
+
+<h1>Modifier</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="id" />
+
+    <div>
+        <label>Nom</label>
+        <input asp-for="nom" class="form-control" />
+    </div>
+
+    <div>
+        <label>Date</label>
+        <input asp-for="date" type="date" class="form-control" />
+    </div>
+
+    <div>
+        <label>Description</label>
+        <textarea asp-for="description" class="form-control"></textarea>
+    </div>
+
+    <div>
+        <label>Type</label>
+        <select asp-for="type" class="form-control"
+                asp-items="Html.GetEnumSelectList<Communication_VertLavenir.Models.typeEvent>()">
+        </select>
+    </div>
+
+    <button type="submit">Sauvegarder</button>
+</form>
+
+<a asp-action="Index">Retour</a>
