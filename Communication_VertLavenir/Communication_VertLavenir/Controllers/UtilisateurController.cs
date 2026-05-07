@@ -1,83 +1,58 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Communication_VertLavenir.Models;
+using Models.data; // Corrected namespace for AppDbContext
 
 namespace Communication_VertLavenir.Controllers
 {
     public class UtilisateurController : Controller
     {
-        // GET: UtilisateurController
-        public ActionResult Index()
+        private readonly AppDbContext _context;
+
+        public UtilisateurController(AppDbContext context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: UtilisateurController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Index()
         {
-            return View();
+            // Fetch users, excluding admins (fixed 'Utilisateurs' property name)
+            var users = await _context.Utilisateurs
+                .Where(u => u.role != role.admin)
+                .ToListAsync();
+
+            // Generate dropdown lists from the role enum (excluding admin)
+            ViewBag.AvailableRoles = Enum.GetValues(typeof(role))
+                .Cast<role>()
+                .Where(r => r != role.admin)
+                .Select(r => new SelectListItem
+                {
+                    Value = r.ToString(),
+                    Text = r.ToString()
+                })
+                .ToList();
+
+            return View(users);
         }
 
-        // GET: UtilisateurController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UtilisateurController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> UpdateRole(int userId, role newRole)
         {
-            try
+            // Fixed 'Utilisateurs' property name
+            var user = await _context.Utilisateurs.FindAsync(userId);
+            
+            if (user != null)
             {
-                return RedirectToAction(nameof(Index));
+                user.role = newRole;
+                _context.Update(user);
+                await _context.SaveChangesAsync();
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: UtilisateurController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UtilisateurController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UtilisateurController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UtilisateurController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
