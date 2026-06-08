@@ -1,0 +1,38 @@
+@model List<ContactMessage>
+@{ ViewData["Title"] = "Messages"; }
+
+<h1 class="section-title mb-3">Messages de contact</h1>
+
+<div class="vl-card p-0">
+    <table class="table mb-0 align-middle">
+        <thead class="table-light"><tr><th>Date</th><th>Nom</th><th>Courriel</th><th>Sujet</th><th>Message</th><th>Statut</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td>@m.Name</td>
+                    <td>@m.Email</td>
+                    <td>@m.Subject</td>
+                    <td style="max-width:280px;"><span class="d-inline-block text-truncate" style="max-width:280px;">@m.Message</span></td>
+                    <td><span class="badge @(m.Status == ContactStatus.New ? "bg-warning text-dark" : m.Status == ContactStatus.Read ? "bg-success" : "bg-secondary")">@m.Status</span></td>
+                    <td class="text-end">
+                        <form asp-action="SetStatus" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@m.Id" />
+                            <input type="hidden" name="status" value="@((int)ContactStatus.Read)" />
+                            <button class="btn btn-sm btn-outline-success" title="Marquer comme lu"><i class="bi bi-check2"></i></button>
+                        </form>
+                        <form asp-action="SetStatus" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@m.Id" />
+                            <input type="hidden" name="status" value="@((int)ContactStatus.Archived)" />
+                            <button class="btn btn-sm btn-outline-secondary" title="Archiver"><i class="bi bi-archive"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any()) { <tr><td colspan="7" class="text-center text-muted py-3">Aucun message.</td></tr> }
+        </tbody>
+    </table>
+</div>

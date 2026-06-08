@@ -1,0 +1,116 @@
+@model ContactViewModel
+@{
+    ViewData["Title"] = T["Contact_Title"].Value;
+    var hoursLines = (Model.OpeningHours ?? string.Empty)
+        .Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+}
+
+<section class="section-cream py-5">
+    <div class="container text-center">
+        <h1 class="section-title">@T["Contact_Title"]</h1>
+        <div class="rule mx-auto mt-2"></div>
+        <p class="text-muted mt-3 col-lg-8 mx-auto">@T["Contact_Subtitle"]</p>
+    </div>
+</section>
+
+<section class="contact-section section-pad">
+    <div class="container contact-section__inner">
+        <div class="row g-3 g-lg-4 contact-cards-row">
+            <div class="col-md-4">
+                <div class="vl-card vl-card--auto contact-card p-4 text-center">
+                    <div class="vl-icon-circle mx-auto mb-2"><i class="bi bi-envelope"></i></div>
+                    <h6 class="section-title-sm">@T["Contact_Email"]</h6>
+                    <p class="text-muted small mb-0 text-break">@ViewBag.ContactEmail</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="vl-card vl-card--auto contact-card p-4 text-center">
+                    <div class="vl-icon-circle mx-auto mb-2"><i class="bi bi-telephone"></i></div>
+                    <h6 class="section-title-sm">@T["Contact_Phone"]</h6>
+                    <p class="text-muted small mb-0">@ViewBag.ContactPhone</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="vl-card vl-card--auto contact-card p-4 text-center">
+                    <div class="vl-icon-circle mx-auto mb-2"><i class="bi bi-geo-alt"></i></div>
+                    <h6 class="section-title-sm">@T["Contact_Address"]</h6>
+                    <p class="text-muted small mb-0 text-break">@ViewBag.ContactAddress</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="vl-form-card overflow-hidden contact-map mb-4">
+            <iframe title="map" width="100%" height="280" style="border:0"
+                    loading="lazy"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-73.55%2C45.50%2C-73.40%2C45.58&layer=mapnik"></iframe>
+        </div>
+
+        <div class="row g-4 align-items-start contact-form-row">
+            <div class="col-lg-8">
+                <div class="vl-form-card p-4 contact-form-card">
+                    <h4 class="section-title-sm mb-3">@T["Contact_SendMessage"]</h4>
+                    <form asp-action="Index" method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label">@T["Field_FullName"]</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label">@T["Field_Email"]</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Phone" class="form-label">@T["Field_Phone"]</label>
+                                <input asp-for="Phone" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Subject" class="form-label">@T["Field_Subject"]</label>
+                                <input asp-for="Subject" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Message" class="form-label">@T["Field_Message"]</label>
+                                <textarea asp-for="Message" rows="5" class="form-control"></textarea>
+                                <span asp-validation-for="Message" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-vl mt-3">@T["Btn_Send"]</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-sidebar">
+                    <div class="vl-card vl-card--auto contact-card p-4 mb-3 mb-lg-4">
+                        <h6 class="section-title-sm mb-2">@T["Contact_OpeningHours"]</h6>
+                        @if (hoursLines.Length > 0)
+                        {
+                            <ul class="vl-hours-list mb-0">
+                                @foreach (var line in hoursLines)
+                                {
+                                    <li>@line</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-muted small mb-0">—</p>
+                        }
+                    </div>
+                    <div class="vl-card vl-card--auto contact-card p-4">
+                        <h6 class="section-title-sm mb-2">@T["Contact_Social"]</h6>
+                        <div class="vl-social-row vl-social-row--contact">
+                            <a class="vl-social text-vl-green" href="@(ViewBag.SocialFacebook ?? "#")" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a class="vl-social text-vl-green" href="@(ViewBag.SocialInstagram ?? "#")" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a class="vl-social text-vl-green" href="@(ViewBag.SocialLinkedIn ?? "#")" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

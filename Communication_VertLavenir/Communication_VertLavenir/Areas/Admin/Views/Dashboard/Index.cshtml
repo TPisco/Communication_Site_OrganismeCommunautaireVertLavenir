@@ -1,0 +1,55 @@
+@model AdminDashboardViewModel
+@using System.Text.Json
+@{
+    ViewData["Title"] = "Tableau de bord";
+}
+
+<h1 class="section-title mb-4">Tableau de bord</h1>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="text-muted small">Membres</div><div class="v">@Model.TotalMembers</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="text-muted small">Évènements</div><div class="v">@Model.TotalEvents</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="text-muted small">Total des dons</div><div class="v">@Model.TotalDonated.ToString("C0")</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="text-muted small">Inscriptions</div><div class="v">@Model.TotalRegistrations</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="text-muted small">Dons (nombre)</div><div class="v">@Model.TotalDonations</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="text-muted small">Taux de participation</div><div class="v">@Model.ParticipationRate%</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-tile"><div class="text-muted small">Nouveaux messages</div><div class="v">@Model.NewContactMessages</div></div></div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="vl-card p-3"><h6 class="section-title-sm">Dons par mois ($)</h6><canvas id="donationsChart" height="140"></canvas></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="vl-card p-3"><h6 class="section-title-sm">Nouveaux membres par mois</h6><canvas id="membersChart" height="140"></canvas></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="vl-card p-3"><h6 class="section-title-sm">Top catégories par participation</h6><canvas id="categoriesChart" height="140"></canvas></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const donLabels = @Html.Raw(JsonSerializer.Serialize(Model.DonationsPerMonth.Select(p => p.Label)));
+        const donData = @Html.Raw(JsonSerializer.Serialize(Model.DonationsPerMonth.Select(p => p.Sum)));
+        const memLabels = @Html.Raw(JsonSerializer.Serialize(Model.NewMembersPerMonth.Select(p => p.Label)));
+        const memData = @Html.Raw(JsonSerializer.Serialize(Model.NewMembersPerMonth.Select(p => p.Count)));
+        const catLabels = @Html.Raw(JsonSerializer.Serialize(Model.TopCategories.Select(p => p.Label)));
+        const catData = @Html.Raw(JsonSerializer.Serialize(Model.TopCategories.Select(p => p.Count)));
+
+        new Chart(document.getElementById('donationsChart'), {
+            type: 'bar',
+            data: { labels: donLabels, datasets: [{ label: '$', data: donData, backgroundColor: '#2e7d32' }] },
+            options: { plugins: { legend: { display: false } } }
+        });
+        new Chart(document.getElementById('membersChart'), {
+            type: 'line',
+            data: { labels: memLabels, datasets: [{ label: 'Membres', data: memData, borderColor: '#2e7d32', backgroundColor: 'rgba(46,125,50,.2)', fill: true, tension: .3 }] },
+            options: { plugins: { legend: { display: false } } }
+        });
+        new Chart(document.getElementById('categoriesChart'), {
+            type: 'doughnut',
+            data: { labels: catLabels, datasets: [{ data: catData, backgroundColor: ['#1f5130','#2e7d32','#3a9b4e','#4caf50','#81c784','#a5d6a7','#c8e6c9'] }] }
+        });
+    </script>
+}

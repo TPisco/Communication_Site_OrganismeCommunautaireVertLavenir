@@ -1,0 +1,18 @@
+@model Donation
+@{ ViewData["Title"] = "Détails du don"; }
+
+<h1 class="section-title mb-4">Détails du don #@Model.Id</h1>
+<div class="vl-card p-4 col-lg-8">
+    <dl class="row mb-0">
+        <dt class="col-sm-4">Montant</dt><dd class="col-sm-8">@Model.Amount.ToString("C") @Model.Currency</dd>
+        <dt class="col-sm-4">Statut</dt><dd class="col-sm-8">@Model.Status</dd>
+        <dt class="col-sm-4">Méthode</dt><dd class="col-sm-8">@Model.PaymentMethod</dd>
+        <dt class="col-sm-4">Date</dt><dd class="col-sm-8">@Model.CreatedAt.ToLocalTime().ToString("dd MMM yyyy HH:mm")</dd>
+        <dt class="col-sm-4">Donateur</dt><dd class="col-sm-8">@Model.DonorName</dd>
+        <dt class="col-sm-4">Courriel</dt><dd class="col-sm-8">@Model.Email</dd>
+        <dt class="col-sm-4">Téléphone</dt><dd class="col-sm-8">@Model.Phone</dd>
+        <dt class="col-sm-4">Adresse</dt><dd class="col-sm-8">@Model.AddressLine1, @Model.City @Model.Province @Model.PostalCode</dd>
+        <dt class="col-sm-4">Compte lié</dt><dd class="col-sm-8">@(Model.User?.FullName ?? "—")</dd>
+    </dl>
+</div>
+<a class="btn btn-link mt-3" asp-action="Index">Retour</a>

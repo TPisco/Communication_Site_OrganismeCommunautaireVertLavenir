@@ -1,0 +1,47 @@
+@model MemberDetailViewModel
+@{ ViewData["Title"] = "Profil membre"; }
+
+<h1 class="section-title mb-4">@Model.User.FullName</h1>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="vl-card p-4">
+            <h6 class="section-title-sm">Informations</h6>
+            <dl class="row mb-0 small">
+                <dt class="col-5">Courriel</dt><dd class="col-7">@Model.User.Email</dd>
+                <dt class="col-5">Téléphone</dt><dd class="col-7">@Model.User.Phone</dd>
+                <dt class="col-5">Rôle</dt><dd class="col-7">@Model.User.Role</dd>
+                <dt class="col-5">Inscrit le</dt><dd class="col-7">@Model.User.CreatedAt.ToString("dd MMM yyyy")</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="vl-card p-4 mb-4">
+            <h6 class="section-title-sm">Inscriptions (@Model.Registrations.Count)</h6>
+            <ul class="list-group list-group-flush">
+                @foreach (var r in Model.Registrations)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@(r.Event?.TitleFr) <small class="text-muted">@r.Event?.StartDateTime.ToString("dd MMM yyyy")</small></span>
+                        <span class="badge bg-success">@r.Status</span>
+                    </li>
+                }
+                @if (!Model.Registrations.Any()) { <li class="list-group-item text-muted">Aucune.</li> }
+            </ul>
+        </div>
+        <div class="vl-card p-4">
+            <h6 class="section-title-sm">Dons (@Model.Donations.Count)</h6>
+            <ul class="list-group list-group-flush">
+                @foreach (var d in Model.Donations)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@d.CreatedAt.ToString("dd MMM yyyy") — @d.PaymentMethod</span>
+                        <strong>@d.Amount.ToString("C")</strong>
+                    </li>
+                }
+                @if (!Model.Donations.Any()) { <li class="list-group-item text-muted">Aucun.</li> }
+            </ul>
+        </div>
+    </div>
+</div>
+<a class="btn btn-link mt-3" asp-action="Index">Retour</a>

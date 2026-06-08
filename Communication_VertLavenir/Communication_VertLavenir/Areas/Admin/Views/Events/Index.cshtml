@@ -1,0 +1,44 @@
+@model List<Event>
+@{
+    ViewData["Title"] = "Évènements";
+    var counts = ViewBag.Counts as Dictionary<int, int> ?? new();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="section-title mb-0">Évènements</h1>
+    <a class="btn btn-vl" asp-action="Create"><i class="bi bi-plus-lg"></i> Nouvel évènement</a>
+</div>
+
+<form method="get" class="mb-3 col-md-5">
+    <div class="input-group">
+        <input name="search" value="@ViewBag.Search" class="form-control" placeholder="Rechercher..." />
+        <button class="btn btn-vl-outline">Rechercher</button>
+    </div>
+</form>
+
+<div class="vl-card p-0">
+    <table class="table table-hover mb-0 align-middle">
+        <thead class="table-light">
+            <tr><th>Titre</th><th>Date</th><th>Lieu</th><th>Catégorie</th><th>Inscrits</th><th>Statut</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model)
+            {
+                var c = counts.TryGetValue(e.Id, out var n) ? n : 0;
+                <tr>
+                    <td>@e.TitleFr</td>
+                    <td>@e.StartDateTime.ToString("dd MMM yyyy HH:mm")</td>
+                    <td>@e.Location</td>
+                    <td><span class="badge bg-success-subtle text-success">@e.Category</span></td>
+                    <td>@c / @e.Capacity</td>
+                    <td>@(e.IsActive ? "Actif" : "Inactif")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Registrations" asp-route-id="@e.Id" title="Inscriptions"><i class="bi bi-people"></i></a>
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@e.Id"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@e.Id"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

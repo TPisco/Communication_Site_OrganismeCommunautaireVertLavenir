@@ -1,0 +1,103 @@
+@model ProfileViewModel
+@{
+    ViewData["Title"] = T["Profile_Title"].Value;
+}
+
+<section class="py-5">
+    <div class="container">
+        <h1 class="section-title mb-4">@T["Profile_Title"]</h1>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="vl-form-card p-4">
+                    <h5 class="section-title-sm mb-3">@T["Profile_PersonalInfo"]</h5>
+                    <form asp-action="Profile" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label asp-for="FirstName" class="form-label">@T["Field_FirstName"]</label>
+                            <input asp-for="FirstName" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="form-label">@T["Field_LastName"]</label>
+                            <input asp-for="LastName" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">@T["Field_Email"]</label>
+                            <input asp-for="Email" class="form-control" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label">@T["Field_Phone"]</label>
+                            <input asp-for="Phone" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-vl w-100">@T["Btn_Save"]</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="vl-form-card p-4 mb-4">
+                    <h5 class="section-title-sm mb-3">@T["Profile_Upcoming"]</h5>
+                    @if (!Model.UpcomingRegistrations.Any())
+                    {
+                        <p class="text-muted mb-0">@T["Profile_NoUpcoming"]</p>
+                    }
+                    else
+                    {
+                        <ul class="list-group">
+                            @foreach (var r in Model.UpcomingRegistrations)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>@r.Event!.TitleLoc <small class="text-muted">— @r.Event.StartDateTime.ToString("dd MMM yyyy")</small></span>
+                                    <span class="badge bg-success">@r.Status</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+
+                <div class="vl-form-card p-4 mb-4">
+                    <h5 class="section-title-sm mb-3">@T["Profile_Past"]</h5>
+                    @if (!Model.PastRegistrations.Any())
+                    {
+                        <p class="text-muted mb-0">@T["Profile_NoPast"]</p>
+                    }
+                    else
+                    {
+                        <ul class="list-group">
+                            @foreach (var r in Model.PastRegistrations)
+                            {
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>@r.Event!.TitleLoc</span>
+                                    <small class="text-muted">@r.Event.StartDateTime.ToString("dd MMM yyyy")</small>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+
+                <div class="vl-form-card p-4">
+                    <h5 class="section-title-sm mb-3">@T["Profile_DonationHistory"]</h5>
+                    @if (!Model.Donations.Any())
+                    {
+                        <p class="text-muted mb-0">@T["Profile_NoDonations"]</p>
+                    }
+                    else
+                    {
+                        <table class="table table-sm">
+                            <thead><tr><th>@T["Common_Date"]</th><th>@T["Common_Amount"]</th><th>@T["Common_Method"]</th><th>@T["Common_Status"]</th></tr></thead>
+                            <tbody>
+                                @foreach (var d in Model.Donations)
+                                {
+                                    <tr>
+                                        <td>@d.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")</td>
+                                        <td>@d.Amount.ToString("C")</td>
+                                        <td>@d.PaymentMethod</td>
+                                        <td><span class="badge bg-success">@d.Status</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,52 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = T["Auth_RegisterTitle"].Value;
+}
+
+<section class="section-green py-5">
+    <div class="container">
+        <div class="col-md-7 col-lg-5 mx-auto vl-form-card p-4 p-md-5 my-4">
+            <h2 class="text-vl-green fw-bold">@T["Auth_RegisterTitle"]</h2>
+            <p class="text-muted">@T["Auth_RegisterSubtitle"]</p>
+
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+                <div class="mb-3">
+                    <label asp-for="FirstName" class="form-label">@T["Field_FirstName"]</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LastName" class="form-label">@T["Field_LastName"]</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">@T["Field_Email"]</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">@T["Field_Password"]</label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label">@T["Field_ConfirmPassword"]</label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+                <button type="submit" class="btn btn-vl w-100">@T["Btn_CreateAccount"]</button>
+            </form>
+
+            <p class="text-center mt-3 mb-0">
+                @T["Auth_HaveAccount"]
+                <a asp-action="Login" class="fw-semibold">@T["Auth_SignInLink"]</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

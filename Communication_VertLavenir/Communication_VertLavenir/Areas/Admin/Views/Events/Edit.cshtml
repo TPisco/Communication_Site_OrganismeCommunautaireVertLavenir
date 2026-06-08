@@ -1,0 +1,10 @@
+@model Event
+@{ ViewData["Title"] = "Modifier l'évènement"; }
+<h1 class="section-title mb-4">Modifier l'évènement</h1>
+<div class="vl-card p-4">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+        @Html.AntiForgeryToken()
+        <partial name="_EventForm" model="Model" />
+    </form>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

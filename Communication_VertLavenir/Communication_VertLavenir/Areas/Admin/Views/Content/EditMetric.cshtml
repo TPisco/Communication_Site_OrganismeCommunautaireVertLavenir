@@ -1,0 +1,21 @@
+@model ImpactMetric
+@{ ViewData["Title"] = "Métrique"; }
+<h1 class="section-title mb-4">@(Model.Id == 0 ? "Nouvelle métrique" : "Modifier la métrique")</h1>
+<div class="vl-card p-4 col-lg-8">
+    <form asp-action="EditMetric" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div class="row g-3">
+            <div class="col-md-6"><label asp-for="Key" class="form-label">Clé</label><input asp-for="Key" class="form-control" /><span asp-validation-for="Key" class="text-danger small"></span></div>
+            <div class="col-md-6"><label asp-for="Value" class="form-label">Valeur affichée</label><input asp-for="Value" class="form-control" /></div>
+            <div class="col-md-6"><label asp-for="LabelFr" class="form-label">Libellé (FR)</label><input asp-for="LabelFr" class="form-control" /></div>
+            <div class="col-md-6"><label asp-for="LabelEn" class="form-label">Libellé (EN)</label><input asp-for="LabelEn" class="form-control" /></div>
+            <div class="col-md-4"><label asp-for="Icon" class="form-label">Icône (bi-*)</label><input asp-for="Icon" class="form-control" /></div>
+            <div class="col-md-4"><label asp-for="Unit" class="form-label">Unité</label><input asp-for="Unit" class="form-control" /></div>
+            <div class="col-md-4"><label asp-for="DisplayOrder" class="form-label">Ordre</label><input asp-for="DisplayOrder" type="number" class="form-control" /></div>
+        </div>
+        <button class="btn btn-vl mt-3">Enregistrer</button>
+        <a class="btn btn-link" asp-action="Index">Annuler</a>
+    </form>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

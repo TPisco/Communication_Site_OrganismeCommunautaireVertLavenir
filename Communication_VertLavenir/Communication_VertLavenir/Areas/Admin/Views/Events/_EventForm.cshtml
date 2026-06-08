@@ -1,0 +1,57 @@
+@model Event
+
+<div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+<input type="hidden" asp-for="Id" />
+<div class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="TitleFr" class="form-label">Titre (FR)</label>
+        <input asp-for="TitleFr" class="form-control" />
+        <span asp-validation-for="TitleFr" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="TitleEn" class="form-label">Titre (EN)</label>
+        <input asp-for="TitleEn" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label asp-for="DescriptionFr" class="form-label">Description (FR)</label>
+        <textarea asp-for="DescriptionFr" rows="3" class="form-control"></textarea>
+        <span asp-validation-for="DescriptionFr" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="DescriptionEn" class="form-label">Description (EN)</label>
+        <textarea asp-for="DescriptionEn" rows="3" class="form-control"></textarea>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="StartDateTime" class="form-label">Début</label>
+        <input asp-for="StartDateTime" type="datetime-local" class="form-control" />
+    </div>
+    <div class="col-md-4">
+        <label asp-for="EndDateTime" class="form-label">Fin</label>
+        <input asp-for="EndDateTime" type="datetime-local" class="form-control" />
+    </div>
+    <div class="col-md-4">
+        <label asp-for="Category" class="form-label">Catégorie</label>
+        <select asp-for="Category" asp-items="Html.GetEnumSelectList<EventCategory>()" class="form-select"></select>
+    </div>
+    <div class="col-md-8">
+        <label asp-for="Location" class="form-label">Lieu</label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger small"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="Capacity" class="form-label">Capacité</label>
+        <input asp-for="Capacity" type="number" class="form-control" />
+    </div>
+    <div class="col-md-3 form-check ms-2 mt-4">
+        <input asp-for="IsPublic" class="form-check-input" />
+        <label asp-for="IsPublic" class="form-check-label">Public</label>
+    </div>
+    <div class="col-md-3 form-check ms-2 mt-4">
+        <input asp-for="IsActive" class="form-check-input" />
+        <label asp-for="IsActive" class="form-check-label">Actif</label>
+    </div>
+</div>
+<div class="mt-4">
+    <button type="submit" class="btn btn-vl">Enregistrer</button>
+    <a class="btn btn-link" asp-action="Index">Annuler</a>
+</div>

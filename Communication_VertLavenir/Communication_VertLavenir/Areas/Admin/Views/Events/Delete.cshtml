@@ -1,0 +1,12 @@
+@model Event
+@{ ViewData["Title"] = "Supprimer"; }
+<h1 class="section-title mb-4">Supprimer l'évènement</h1>
+<div class="vl-card p-4">
+    <p>Êtes-vous sûr de vouloir supprimer <strong>@Model.TitleFr</strong> ?</p>
+    <p class="text-muted small">@Model.StartDateTime.ToString("dd MMM yyyy HH:mm") — @Model.Location</p>
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Supprimer définitivement</button>
+        <a class="btn btn-link" asp-action="Index">Annuler</a>
+    </form>
+</div>

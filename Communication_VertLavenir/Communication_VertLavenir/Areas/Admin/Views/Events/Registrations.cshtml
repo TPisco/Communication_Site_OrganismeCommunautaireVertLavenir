@@ -1,0 +1,36 @@
+@model EventRegistrationsViewModel
+@{ ViewData["Title"] = "Inscriptions"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="section-title mb-0">Inscriptions</h1>
+        <p class="text-muted mb-0">@Model.Event.TitleFr — @Model.Event.StartDateTime.ToString("dd MMM yyyy")</p>
+    </div>
+    <div>
+        <a class="btn btn-vl-outline" asp-action="ExportCsv" asp-route-id="@Model.Event.Id"><i class="bi bi-download"></i> Exporter CSV</a>
+        <a class="btn btn-link" asp-action="Index">Retour</a>
+    </div>
+</div>
+
+<div class="vl-card p-0">
+    <table class="table mb-0">
+        <thead class="table-light"><tr><th>Nom</th><th>Courriel</th><th>Téléphone</th><th>Statut</th><th>Date</th></tr></thead>
+        <tbody>
+            @if (!Model.Registrations.Any())
+            {
+                <tr><td colspan="5" class="text-muted text-center py-3">Aucune inscription.</td></tr>
+            }
+            @foreach (var r in Model.Registrations)
+            {
+                <tr>
+                    <td>@r.Name</td>
+                    <td>@r.Email</td>
+                    <td>@r.Phone</td>
+                    <td><span class="badge @(r.Status == RegistrationStatus.Confirmed ? "bg-success" : r.Status == RegistrationStatus.Waitlisted ? "bg-warning text-dark" : "bg-secondary")">@r.Status</span></td>
+                    <td>@r.RegistrationDate.ToString("dd MMM yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<p class="text-muted small mt-2">Total : @Model.Registrations.Count / @Model.Event.Capacity places</p>

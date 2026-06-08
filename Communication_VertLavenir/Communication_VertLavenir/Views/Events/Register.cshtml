@@ -1,0 +1,45 @@
+@model EventRegisterViewModel
+@{
+    ViewData["Title"] = T["Reg_Title"].Value;
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="vl-form-card p-4 p-md-5">
+                    <h2 class="section-title-sm mb-1">@T["Reg_Title"]</h2>
+                    <p class="text-muted">@Model.EventTitle</p>
+
+                    <form asp-action="Register" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="EventId" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">@T["Field_FullName"]</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">@T["Field_Email"]</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label">@T["Field_Phone"]</label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger small"></span>
+                        </div>
+                        <button type="submit" class="btn btn-vl w-100">@T["Btn_Register"]</button>
+                        <a class="btn btn-link w-100 mt-2" asp-action="Index">@T["Btn_BackToActivities"]</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

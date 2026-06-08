@@ -1,37 +1,90 @@
-﻿@page
-@using Communication_VertLavenir.Views
-@model IndexModel
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = T["Nav_Home"].Value;
+}
 
-
-<div class="text-center mb-5">
-    <h1 class="display-4">Bienvenue</h1>
-    <p>Placeholder</p>
-</div>
-
-<div class="container">
-    <div class="row g-4">
-        <div class="col-12 col-md-4">
-            <div class="ratio ratio-1x1">
-                <div class="bg-light border rounded-4 shadow-sm d-flex align-items-center justify-content-center">
-                    <a class="nav-link text-dark" asp-controller="stats" asp-action="Index">Statistiques</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <div class="ratio ratio-1x1">
-                <div class="bg-light border rounded-4 shadow-sm d-flex align-items-center justify-content-center">
-                    <a class="nav-link text-dark" asp-controller="Evenements" asp-action="Index">Évenements</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <div class="ratio ratio-1x1">
-                <div class="bg-light border rounded-4 shadow-sm d-flex align-items-center justify-content-center">
-                    <a class="nav-link text-dark" asp-controller="Utilisateur" asp-action="Index">Gerer les utilisateurs</a>
-                </div>
+<!-- Hero -->
+<section class="container py-4">
+    <div class="vl-hero">
+        <div class="vl-hero-inner col-lg-7">
+            <span class="vl-badge-pill"><i class="bi bi-geo-alt"></i> @T["Home_Badge"]</span>
+            <h1 class="display-4 fw-bold">Vert l'avenir</h1>
+            <p class="lead">@Model.Mission</p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+                <a class="btn btn-vl" asp-controller="Account" asp-action="Register">@T["Btn_BecomeVolunteer"] <i class="bi bi-arrow-right"></i></a>
+                <a class="btn btn-vl-light" asp-controller="Events" asp-action="Index">@T["Btn_ViewActivities"]</a>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Who we are -->
+<section class="section-cream py-5">
+    <div class="container text-center">
+        <p class="eyebrow mb-2">@T["Section_WhoWeAre"]</p>
+        <h2 class="section-title mb-2">@T["Section_OurValues"]</h2>
+        <div class="row g-4 mt-3">
+            @foreach (var v in Model.Values)
+            {
+                <div class="col-md-4">
+                    <div class="vl-card p-4 text-start">
+                        <div class="vl-icon-circle mb-3"><i class="bi bi-check2-circle"></i></div>
+                        <h5 class="section-title-sm">@v.TitleLoc</h5>
+                        <p class="text-muted small mb-0">@v.DescriptionLoc</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <a class="btn btn-vl-outline mt-4" asp-controller="Home" asp-action="About">@T["Btn_LearnMore"]</a>
+    </div>
+</section>
+
+<!-- Impact -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="section-title mb-4">@T["Section_OurImpact"]</h2>
+        <div class="row g-4">
+            @foreach (var m in Model.Metrics)
+            {
+                <div class="col-6 col-md-3">
+                    <div class="vl-card p-4">
+                        <div class="vl-icon-circle mb-2"><i class="bi @(m.Icon ?? "bi-bar-chart")"></i></div>
+                        <div class="vl-metric-value">@m.Value</div>
+                        <div class="vl-metric-label">@m.LabelLoc</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Key actions -->
+<section class="section-cream py-5">
+    <div class="container text-center">
+        <h2 class="section-title mb-4">@T["Section_KeyActions"]</h2>
+        <div class="row g-4">
+            @foreach (var a in Model.KeyActions)
+            {
+                <div class="col-md-6">
+                    <div class="vl-card p-4 text-start d-flex gap-3">
+                        <div class="vl-icon-circle flex-shrink-0"><i class="bi @(a.Icon ?? "bi-stars")"></i></div>
+                        <div>
+                            <h5 class="section-title-sm mb-1">@a.TitleLoc</h5>
+                            <p class="text-muted small mb-0">@a.DescriptionLoc</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <a class="btn btn-vl-outline mt-4" asp-controller="Events" asp-action="Index">@T["Btn_ViewActivities"] <i class="bi bi-arrow-right"></i></a>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section-green py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-2">@T["Btn_JoinMovement"]</h2>
+        <p class="mb-4">@T["Home_CTA_Subtitle"]</p>
+        <a class="btn btn-vl-light btn-lg" asp-controller="Account" asp-action="Register">@T["Btn_BecomeVolunteer"] <i class="bi bi-arrow-right"></i></a>
+    </div>
+</section>

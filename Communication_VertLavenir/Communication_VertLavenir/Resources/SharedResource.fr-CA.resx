@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Nav_Home"><value>Accueil</value></data>
+  <data name="Nav_Donations"><value>Dons</value></data>
+  <data name="Nav_About"><value>Qui sommes-nous ?</value></data>
+  <data name="Nav_Calendar"><value>Calendrier</value></data>
+  <data name="Nav_Events"><value>Activités</value></data>
+  <data name="Nav_Contact"><value>Nous joindre</value></data>
+  <data name="Nav_Login"><value>Connexion</value></data>
+  <data name="Nav_Logout"><value>Déconnexion</value></data>
+  <data name="Nav_Register"><value>Inscription</value></data>
+  <data name="Nav_MyAccount"><value>Mon compte</value></data>
+  <data name="Nav_Admin"><value>Administration</value></data>
+
+  <data name="Lang_Label"><value>Langue</value></data>
+  <data name="Lang_French"><value>Français</value></data>
+  <data name="Lang_English"><value>English</value></data>
+  <data name="Lang_Spanish"><value>Español</value></data>
+
+  <data name="Btn_BecomeVolunteer"><value>Devenir bénévole</value></data>
+  <data name="Btn_ViewActivities"><value>Voir nos activités</value></data>
+  <data name="Btn_JoinMovement"><value>Rejoignez le mouvement</value></data>
+  <data name="Btn_LearnMore"><value>En savoir plus</value></data>
+  <data name="Btn_Donate"><value>Faire un don</value></data>
+  <data name="Btn_Register"><value>S'inscrire</value></data>
+  <data name="Btn_Send"><value>Envoyer le message</value></data>
+  <data name="Btn_Search"><value>Rechercher</value></data>
+  <data name="Btn_BackHome"><value>Retour à l'accueil</value></data>
+  <data name="Btn_BackToActivities"><value>Retour aux activités</value></data>
+  <data name="Btn_SignIn"><value>Se connecter</value></data>
+  <data name="Btn_CreateAccount"><value>Créer mon compte</value></data>
+  <data name="Btn_CompleteDonation"><value>Effectuer le don</value></data>
+  <data name="Btn_Save"><value>Enregistrer</value></data>
+
+  <data name="Section_WhoWeAre"><value>Qui sommes-nous ?</value></data>
+  <data name="Section_OurImpact"><value>Notre impact</value></data>
+  <data name="Section_OurValues"><value>Nos valeurs</value></data>
+  <data name="Section_KeyActions"><value>Nos actions clés</value></data>
+  <data name="Section_OurMission"><value>Notre mission</value></data>
+  <data name="Section_WhatWeDo"><value>Ce que nous faisons</value></data>
+
+  <data name="Footer_Tagline"><value>Ensemble pour un avenir durable et respectueux de l'environnement.</value></data>
+  <data name="Footer_Navigation"><value>Navigation</value></data>
+  <data name="Footer_Resources"><value>Ressources</value></data>
+  <data name="Footer_Contact"><value>Contact</value></data>
+  <data name="Footer_Rights"><value>Tous droits réservés.</value></data>
+  <data name="Footer_FollowUs"><value>Suivez-nous</value></data>
+
+  <data name="Home_Badge"><value>Depuis 8 ans en Montérégie</value></data>
+  <data name="Home_CTA_Subtitle"><value>Ensemble, construisons un avenir plus vert pour la Montérégie.</value></data>
+
+  <data name="About_HeroSubtitle"><value>Sensibiliser la population à la protection de l'environnement et promouvoir des habitudes écoresponsables au quotidien.</value></data>
+
+  <data name="Events_Title"><value>Rejoignez nos activités</value></data>
+  <data name="Events_Subtitle"><value>Participez à nos évènements écoresponsables et faites partie du changement.</value></data>
+  <data name="Events_SearchPlaceholder"><value>Rechercher une activité, un lieu...</value></data>
+  <data name="Events_NoUpcoming"><value>Aucune activité à venir pour le moment.</value></data>
+  <data name="Events_Participants"><value>participants</value></data>
+  <data name="Events_Full"><value>Complet (liste d'attente)</value></data>
+  <data name="Events_JoinWaitlist"><value>Rejoindre la liste d'attente</value></data>
+
+  <data name="Cal_Title"><value>Calendrier écologique</value></data>
+  <data name="Cal_EventsThisMonth"><value>Évènements écologiques ce mois-ci</value></data>
+  <data name="Cal_NoEvents"><value>Aucun évènement ce mois-ci.</value></data>
+  <data name="Day_Mon"><value>Lun</value></data>
+  <data name="Day_Tue"><value>Mar</value></data>
+  <data name="Day_Wed"><value>Mer</value></data>
+  <data name="Day_Thu"><value>Jeu</value></data>
+  <data name="Day_Fri"><value>Ven</value></data>
+  <data name="Day_Sat"><value>Sam</value></data>
+  <data name="Day_Sun"><value>Dim</value></data>
+
+  <data name="Reg_Title"><value>S'inscrire</value></data>
+
+  <data name="Don_HeroTitle"><value>Faire un don</value></data>
+  <data name="Don_HeroSubtitle"><value>Votre contribution nous aide à poursuivre nos activités de sensibilisation environnementale dans la Montérégie.</value></data>
+  <data name="Don_ChooseContribution"><value>Choisissez votre contribution</value></data>
+  <data name="Don_CustomAmount"><value>Ou entrez un montant personnalisé</value></data>
+  <data name="Don_AmountPlaceholder"><value>Montant en $</value></data>
+  <data name="Don_YourInfo"><value>Vos informations</value></data>
+  <data name="Don_PaymentMethod"><value>Méthode de paiement</value></data>
+  <data name="Don_CreditCard"><value>Carte de crédit</value></data>
+  <data name="Don_Cheque"><value>Chèque</value></data>
+  <data name="Don_AcceptTerms"><value>J'accepte les conditions et la politique de confidentialité.</value></data>
+  <data name="Don_SimulatedNote"><value>Ceci est un paiement simulé. Aucun montant réel n'est prélevé.</value></data>
+
+  <data name="Ty_Title"><value>Merci pour votre don !</value></data>
+  <data name="Ty_SentTo"><value>Une confirmation a été envoyée à</value></data>
+
+  <data name="Auth_LoginTitle"><value>Connexion</value></data>
+  <data name="Auth_LoginSubtitle"><value>Connectez-vous à votre compte pour accéder à la plateforme.</value></data>
+  <data name="Auth_RememberMe"><value>Se souvenir de moi</value></data>
+  <data name="Auth_NoAccount"><value>Vous n'avez pas de compte ?</value></data>
+  <data name="Auth_SignUpLink"><value>Inscrivez-vous</value></data>
+  <data name="Auth_RegisterTitle"><value>Inscription</value></data>
+  <data name="Auth_RegisterSubtitle"><value>Rejoignez notre communauté et participez à la protection de l'environnement.</value></data>
+  <data name="Auth_HaveAccount"><value>Vous avez déjà un compte ?</value></data>
+  <data name="Auth_SignInLink"><value>Connectez-vous</value></data>
+
+  <data name="Profile_Title"><value>Mon compte</value></data>
+  <data name="Profile_PersonalInfo"><value>Informations personnelles</value></data>
+  <data name="Profile_Upcoming"><value>Évènements à venir</value></data>
+  <data name="Profile_Past"><value>Évènements passés</value></data>
+  <data name="Profile_DonationHistory"><value>Historique des dons</value></data>
+  <data name="Profile_NoUpcoming"><value>Aucune inscription à venir.</value></data>
+  <data name="Profile_NoPast"><value>Aucun évènement passé.</value></data>
+  <data name="Profile_NoDonations"><value>Aucun don pour le moment.</value></data>
+
+  <data name="Contact_Title"><value>Contactez-nous</value></data>
+  <data name="Contact_Subtitle"><value>Nous serions ravis de vous entendre. N'hésitez pas à nous contacter pour toute question ou collaboration.</value></data>
+  <data name="Contact_Email"><value>Courriel</value></data>
+  <data name="Contact_Phone"><value>Téléphone</value></data>
+  <data name="Contact_Address"><value>Adresse</value></data>
+  <data name="Contact_SendMessage"><value>Envoyez-nous un message</value></data>
+  <data name="Contact_OpeningHours"><value>Heures d'ouverture</value></data>
+  <data name="Contact_Social"><value>Réseaux sociaux</value></data>
+  <data name="Contact_OurLocation"><value>Notre emplacement</value></data>
+
+  <data name="Err_Title"><value>Oups !</value></data>
+  <data name="Err_Body"><value>Une erreur est survenue lors du traitement de votre demande.</value></data>
+  <data name="Denied_Title"><value>Accès refusé</value></data>
+  <data name="Denied_Body"><value>Vous n'avez pas l'autorisation d'accéder à cette page.</value></data>
+
+  <data name="Field_FirstName"><value>Prénom</value></data>
+  <data name="Field_LastName"><value>Nom</value></data>
+  <data name="Field_FullName"><value>Nom complet</value></data>
+  <data name="Field_Email"><value>Courriel</value></data>
+  <data name="Field_Phone"><value>Téléphone</value></data>
+  <data name="Field_Password"><value>Mot de passe</value></data>
+  <data name="Field_ConfirmPassword"><value>Confirmer le mot de passe</value></data>
+  <data name="Field_Address"><value>Adresse</value></data>
+  <data name="Field_City"><value>Ville</value></data>
+  <data name="Field_Province"><value>Province</value></data>
+  <data name="Field_PostalCode"><value>Code postal</value></data>
+  <data name="Field_CardHolder"><value>Nom du titulaire</value></data>
+  <data name="Field_CardNumber"><value>Numéro de carte</value></data>
+  <data name="Field_Expiry"><value>Expiration</value></data>
+  <data name="Field_Cvv"><value>CVV</value></data>
+  <data name="Field_Subject"><value>Sujet</value></data>
+  <data name="Field_Message"><value>Message</value></data>
+
+  <data name="Common_Amount"><value>Montant</value></data>
+  <data name="Common_Method"><value>Méthode</value></data>
+  <data name="Common_Status"><value>Statut</value></data>
+  <data name="Common_Date"><value>Date</value></data>
+  <data name="Common_Donor"><value>Donateur</value></data>
+  <data name="Common_Members"><value>Membres</value></data>
+  <data name="Common_Events"><value>Évènements</value></data>
+  <data name="Common_Registrations"><value>Inscriptions</value></data>
+</root>

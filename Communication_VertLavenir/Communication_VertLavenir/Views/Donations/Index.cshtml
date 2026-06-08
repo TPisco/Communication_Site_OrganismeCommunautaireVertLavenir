@@ -1,0 +1,144 @@
+@model DonationViewModel
+@{
+    ViewData["Title"] = T["Don_HeroTitle"].Value;
+    decimal[] presets = { 25, 50, 100, 250 };
+}
+
+<section class="container py-4">
+    <div class="vl-hero">
+        <div class="vl-hero-inner col-lg-7">
+            <h1 class="display-5 fw-bold">@T["Don_HeroTitle"]</h1>
+            <p class="lead">@T["Don_HeroSubtitle"]</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <form asp-action="Index" method="post" class="col-lg-9 mx-auto">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+            <h4 class="section-title-sm text-center mb-3">@T["Don_ChooseContribution"]</h4>
+            <div class="row g-2 mb-3">
+                @foreach (var p in presets)
+                {
+                    <div class="col-6 col-md-3">
+                        <button type="button" class="vl-amount-btn js-amount" data-amount="@p">@p$</button>
+                    </div>
+                }
+            </div>
+            <div class="mb-4">
+                <label class="form-label">@T["Don_CustomAmount"]</label>
+                <input asp-for="Amount" id="amountInput" type="number" step="1" min="1" class="form-control" placeholder="@T["Don_AmountPlaceholder"]" />
+                <span asp-validation-for="Amount" class="text-danger small"></span>
+            </div>
+
+            <div class="vl-form-card p-4 mb-4">
+                <h5 class="section-title-sm mb-3">@T["Don_YourInfo"]</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="FirstName" class="form-label">@T["Field_FirstName"]</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="LastName" class="form-label">@T["Field_LastName"]</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label">@T["Field_Email"]</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label">@T["Field_Phone"]</label>
+                        <input asp-for="Phone" class="form-control" />
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="AddressLine1" class="form-label">@T["Field_Address"]</label>
+                        <input asp-for="AddressLine1" class="form-control" />
+                    </div>
+                    <div class="col-md-5">
+                        <label asp-for="City" class="form-label">@T["Field_City"]</label>
+                        <input asp-for="City" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Province" class="form-label">@T["Field_Province"]</label>
+                        <input asp-for="Province" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="PostalCode" class="form-label">@T["Field_PostalCode"]</label>
+                        <input asp-for="PostalCode" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="vl-form-card p-4 mb-4">
+                <h5 class="section-title-sm mb-3">@T["Don_PaymentMethod"]</h5>
+                <div class="btn-group w-100 mb-3" role="group">
+                    <input type="radio" class="btn-check js-method" name="PaymentMethod" id="pmCard" value="@((int)PaymentMethod.CarteCredit)" checked autocomplete="off">
+                    <label class="btn btn-outline-success" for="pmCard">@T["Don_CreditCard"]</label>
+
+                    <input type="radio" class="btn-check js-method" name="PaymentMethod" id="pmPaypal" value="@((int)PaymentMethod.PayPal)" autocomplete="off">
+                    <label class="btn btn-outline-success" for="pmPaypal">PayPal</label>
+
+                    <input type="radio" class="btn-check js-method" name="PaymentMethod" id="pmCheque" value="@((int)PaymentMethod.Cheque)" autocomplete="off">
+                    <label class="btn btn-outline-success" for="pmCheque">@T["Don_Cheque"]</label>
+                </div>
+
+                <div id="cardFields" class="row g-3">
+                    <div class="col-12">
+                        <label asp-for="CardHolder" class="form-label">@T["Field_CardHolder"]</label>
+                        <input asp-for="CardHolder" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="CardNumber" class="form-label">@T["Field_CardNumber"]</label>
+                        <input asp-for="CardNumber" class="form-control" placeholder="4242 4242 4242 4242" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CardExpiry" class="form-label">@T["Field_Expiry"]</label>
+                        <input asp-for="CardExpiry" class="form-control" placeholder="MM/AA" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CardCvv" class="form-label">@T["Field_Cvv"]</label>
+                        <input asp-for="CardCvv" class="form-control" placeholder="123" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="AcceptTerms" class="form-check-input" />
+                <label asp-for="AcceptTerms" class="form-check-label">@T["Don_AcceptTerms"]</label>
+                <div><span asp-validation-for="AcceptTerms" class="text-danger small"></span></div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-vl btn-lg px-5">@T["Btn_CompleteDonation"]</button>
+            </div>
+            <p class="text-center text-muted small mt-3">
+                <i class="bi bi-shield-lock"></i> @T["Don_SimulatedNote"]
+            </p>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.querySelectorAll('.js-amount').forEach(function (b) {
+            b.addEventListener('click', function () {
+                document.querySelectorAll('.js-amount').forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                document.getElementById('amountInput').value = b.dataset.amount;
+            });
+        });
+        function toggleCard() {
+            var card = document.getElementById('pmCard').checked;
+            document.getElementById('cardFields').style.display = card ? '' : 'none';
+        }
+        document.querySelectorAll('.js-method').forEach(r => r.addEventListener('change', toggleCard));
+        toggleCard();
+    </script>
+}

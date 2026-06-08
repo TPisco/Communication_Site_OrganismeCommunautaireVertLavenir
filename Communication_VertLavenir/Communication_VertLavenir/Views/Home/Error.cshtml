@@ -1,0 +1,8 @@
+@{
+    ViewData["Title"] = T["Err_Title"].Value;
+}
+<section class="container py-5 text-center">
+    <h1 class="display-5 fw-bold text-vl-green">@T["Err_Title"]</h1>
+    <p class="text-muted">@T["Err_Body"]</p>
+    <a class="btn btn-vl mt-3" asp-controller="Home" asp-action="Index">@T["Btn_BackHome"]</a>
+</section>

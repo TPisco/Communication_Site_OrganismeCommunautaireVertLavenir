@@ -1,0 +1,60 @@
+@model List<ApplicationUser>
+@{
+    ViewData["Title"] = "Membres";
+    var roles = ViewBag.Roles as IEnumerable<UserRole> ?? Enumerable.Empty<UserRole>();
+    var isAdmin = User.IsInRole(nameof(UserRole.Admin));
+}
+
+<h1 class="section-title mb-3">Membres</h1>
+
+<form method="get" class="mb-3 col-md-5">
+    <div class="input-group">
+        <input name="search" value="@ViewBag.Search" class="form-control" placeholder="Rechercher (nom, courriel)..." />
+        <button class="btn btn-vl-outline">Rechercher</button>
+    </div>
+</form>
+
+<div class="vl-card p-0">
+    <table class="table table-hover mb-0 align-middle">
+        <thead class="table-light"><tr><th>Nom</th><th>Courriel</th><th>Téléphone</th><th>Rôle</th><th>Inscrit le</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>@u.FullName</td>
+                    <td>@u.Email</td>
+                    <td>@u.Phone</td>
+                    <td>
+                        @if (isAdmin)
+                        {
+                            <form asp-action="ChangeRole" method="post" class="d-flex gap-1">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@u.Id" />
+                                <select name="role" class="form-select form-select-sm" style="width:auto;">
+                                    @foreach (var r in roles)
+                                    {
+                                        if (r == u.Role)
+                                        {
+                                            <option value="@r" selected>@r</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@r">@r</option>
+                                        }
+                                    }
+                                </select>
+                                <button class="btn btn-sm btn-vl-outline">OK</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@u.Role</span>
+                        }
+                    </td>
+                    <td>@u.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td class="text-end"><a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@u.Id">Profil</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

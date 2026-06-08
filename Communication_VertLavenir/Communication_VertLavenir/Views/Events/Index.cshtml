@@ -1,0 +1,66 @@
+@model EventListViewModel
+@{
+    ViewData["Title"] = T["Nav_Events"].Value;
+}
+
+<section class="section-cream py-5">
+    <div class="container text-center">
+        <h1 class="section-title mb-2"><i class="bi bi-tree text-vl-green"></i> @T["Events_Title"]</h1>
+        <p class="text-muted col-lg-8 mx-auto">@T["Events_Subtitle"]</p>
+        <form method="get" class="col-lg-6 mx-auto mt-3">
+            <div class="input-group">
+                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                <input name="search" value="@Model.Search" class="form-control" placeholder="@T["Events_SearchPlaceholder"]" />
+                <button class="btn btn-vl" type="submit">@T["Btn_Search"]</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        @if (!Model.Events.Any())
+        {
+            <p class="text-center text-muted">@T["Events_NoUpcoming"]</p>
+        }
+        <div class="row g-4">
+            @foreach (var c in Model.Events)
+            {
+                var e = c.Event;
+                <div class="col-md-6 col-lg-4">
+                    <div class="vl-card p-4 d-flex flex-column">
+                        <div class="vl-icon-circle mb-3"><i class="bi bi-calendar2-event"></i></div>
+                        <h5 class="section-title-sm">@e.TitleLoc</h5>
+                        <p class="text-muted small flex-grow-1">@e.DescriptionLoc</p>
+                        <ul class="list-unstyled small text-muted mb-3">
+                            <li><i class="bi bi-calendar3 text-vl-green"></i> @e.StartDateTime.ToString("dd MMM yyyy")</li>
+                            <li><i class="bi bi-clock text-vl-green"></i> @e.StartDateTime.ToString("HH:mm")@(e.EndDateTime != null ? " - " + e.EndDateTime.Value.ToString("HH:mm") : "")</li>
+                            <li><i class="bi bi-geo-alt text-vl-green"></i> @e.Location</li>
+                            <li><i class="bi bi-people text-vl-green"></i> @c.ConfirmedCount / @e.Capacity @T["Events_Participants"]</li>
+                        </ul>
+                        <div class="progress mb-3" style="height:6px;">
+                            <div class="progress-bar" style="width:@(e.Capacity > 0 ? Math.Min(100, c.ConfirmedCount * 100 / e.Capacity) : 0)%"></div>
+                        </div>
+                        @if (c.IsFull)
+                        {
+                            <a class="btn btn-vl-outline w-100 disabled" tabindex="-1">@T["Events_Full"]</a>
+                            <a class="btn btn-link btn-sm w-100" asp-controller="Events" asp-action="Register" asp-route-id="@e.Id">@T["Events_JoinWaitlist"]</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-vl w-100" asp-controller="Events" asp-action="Register" asp-route-id="@e.Id">@T["Btn_Register"]</a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section-green py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-2">@T["Btn_JoinMovement"]</h2>
+        <p class="mb-4">@T["Home_CTA_Subtitle"]</p>
+        <a class="btn btn-vl-light btn-lg" asp-controller="Account" asp-action="Register">@T["Btn_BecomeVolunteer"]</a>
+    </div>
+</section>

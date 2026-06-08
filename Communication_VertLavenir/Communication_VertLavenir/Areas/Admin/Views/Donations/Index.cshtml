@@ -1,0 +1,54 @@
+@model DonationFilterViewModel
+@{ ViewData["Title"] = "Dons"; }
+
+<h1 class="section-title mb-3">Dons</h1>
+
+<form method="get" class="vl-card p-3 mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-2">
+            <label class="form-label small">Du</label>
+            <input name="From" type="date" value="@(Model.From?.ToString("yyyy-MM-dd"))" class="form-control form-control-sm" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small">Au</label>
+            <input name="To" type="date" value="@(Model.To?.ToString("yyyy-MM-dd"))" class="form-control form-control-sm" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small">Montant min</label>
+            <input name="MinAmount" type="number" value="@(Model.MinAmount)" class="form-control form-control-sm" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small">Statut</label>
+            <select name="Status" asp-items="Html.GetEnumSelectList<DonationStatus>()" class="form-select form-select-sm"><option value="">Tous</option></select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small">Méthode</label>
+            <select name="Method" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-select form-select-sm"><option value="">Toutes</option></select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-vl btn-sm w-100">Filtrer</button>
+        </div>
+    </div>
+</form>
+
+<p class="text-muted">Total complété : <strong class="text-vl-green">@Model.Total.ToString("C")</strong> · @Model.Results.Count résultat(s)</p>
+
+<div class="vl-card p-0">
+    <table class="table table-hover mb-0 align-middle">
+        <thead class="table-light"><tr><th>Date</th><th>Donateur</th><th>Courriel</th><th>Montant</th><th>Méthode</th><th>Statut</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var d in Model.Results)
+            {
+                <tr>
+                    <td>@d.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td>@d.DonorName</td>
+                    <td>@d.Email</td>
+                    <td>@d.Amount.ToString("C")</td>
+                    <td>@d.PaymentMethod</td>
+                    <td><span class="badge @(d.Status == DonationStatus.Completed ? "bg-success" : d.Status == DonationStatus.Pending ? "bg-warning text-dark" : "bg-danger")">@d.Status</span></td>
+                    <td class="text-end"><a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@d.Id">Détails</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

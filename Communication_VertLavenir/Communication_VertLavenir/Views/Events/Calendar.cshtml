@@ -1,0 +1,85 @@
+@model CalendarViewModel
+@{
+    ViewData["Title"] = T["Nav_Calendar"].Value;
+    var culture = System.Globalization.CultureInfo.CurrentUICulture;
+    var firstDayOfWeek = (int)Model.FirstDay.DayOfWeek; // 0 = Sunday
+    // We render Monday-first
+    int leading = ((firstDayOfWeek + 6) % 7);
+    var dayNames = new[] { T["Day_Mon"].Value, T["Day_Tue"].Value, T["Day_Wed"].Value, T["Day_Thu"].Value, T["Day_Fri"].Value, T["Day_Sat"].Value, T["Day_Sun"].Value };
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="vl-form-card p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <h2 class="section-title-sm mb-0"><i class="bi bi-calendar3 text-vl-green"></i> @T["Cal_Title"]</h2>
+                <div class="d-flex align-items-center gap-2">
+                    <a class="btn btn-vl-outline btn-sm" asp-action="Calendar" asp-route-month="@Model.PrevMonth.Month" asp-route-year="@Model.PrevMonth.Year"><i class="bi bi-chevron-left"></i></a>
+                    <strong>@culture.TextInfo.ToTitleCase(Model.FirstDay.ToString("MMMM yyyy", culture))</strong>
+                    <a class="btn btn-vl-outline btn-sm" asp-action="Calendar" asp-route-month="@Model.NextMonth.Month" asp-route-year="@Model.NextMonth.Year"><i class="bi bi-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <table class="vl-calendar">
+                <thead>
+                    <tr>@foreach (var d in dayNames){<th>@d</th>}</tr>
+                </thead>
+                <tbody>
+                    @{
+                        int day = 1;
+                        int totalCells = leading + Model.DaysInMonth;
+                        int rows = (int)Math.Ceiling(totalCells / 7.0);
+                        int cell = 0;
+                    }
+                    @for (int r = 0; r < rows; r++)
+                    {
+                        <tr>
+                            @for (int c = 0; c < 7; c++)
+                            {
+                                if (cell < leading || day > Model.DaysInMonth)
+                                {
+                                    <td class="empty"></td>
+                                }
+                                else
+                                {
+                                    var theDay = day;
+                                    <td>
+                                        <div class="vl-cal-daynum">@theDay</div>
+                                        @foreach (var ev in Model.EventsOn(theDay))
+                                        {
+                                            <span class="vl-cal-event" title="@ev.TitleLoc">@ev.TitleLoc</span>
+                                        }
+                                    </td>
+                                    day++;
+                                }
+                                cell++;
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="vl-form-card p-4">
+            <h5 class="section-title-sm mb-3"><i class="bi bi-leaf"></i> @T["Cal_EventsThisMonth"]</h5>
+            @if (!Model.Events.Any())
+            {
+                <p class="text-muted mb-0">@T["Cal_NoEvents"]</p>
+            }
+            <div class="row g-3">
+                @foreach (var ev in Model.Events)
+                {
+                    <div class="col-md-6">
+                        <div class="d-flex gap-3 align-items-center border rounded p-2">
+                            <div class="vl-icon-circle flex-shrink-0"><i class="bi bi-calendar-event"></i></div>
+                            <div>
+                                <div class="fw-semibold">@ev.TitleLoc</div>
+                                <div class="small text-muted">@ev.StartDateTime.ToString("dd MMM, HH:mm") · @ev.Location</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
